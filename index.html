@@ -390,14 +390,27 @@
         `).join('');
       }
 
+      // --- CORREÇÃO APLICADA AQUI NA FUNÇÃO GERAR PONTO ---
       function gerarPonto() {
         const n = document.getElementById("ponto-nome").value || "---";
         const p = document.getElementById("ponto-patente").value || "---";
+        
+        // Capturando as localidades
+        const locEntrada = document.getElementById("localEntrada").value || "---";
+        const locSaida = document.getElementById("localSaida").value || "---";
+
         const de = new Date(document.getElementById("dataEntrada").value);
         const ds = new Date(document.getElementById("dataSaida").value);
+        
+        // Formato __/__ - __:__
         const format = (d) => d instanceof Date && !isNaN(d) ? `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')} - ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}` : "__/__ - __:__";
-        document.getElementById("res-ponto").value = `> ### **Registro de Ponto**\n> **Oficial:** ${n}\n> **Patente:** ${p}\n\n> **Entrada:** ${format(de)}\n> **Saída:** ${format(ds)}`;
+        
+        // Montando o template string exatamente como solicitado
+        const textoFinal = `> ### **Registro de Ponto**\n> **Oficial:** ${n}\n> **Patente:** ${p}\n> ### **Entrada em Serviço**\n> **Localidade:** ${locEntrada}\n> **Data/Horário:** ${format(de)}\n> ### **Saída de Serviço**\n> **Localidade:** ${locSaida}\n> **Data/Horário:** ${format(ds)}`;
+
+        document.getElementById("res-ponto").value = textoFinal;
       }
+      // ----------------------------------------------------
 
       function gerarLicenca() {
         const local = document.getElementById('lic-local').value;
