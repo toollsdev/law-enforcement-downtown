@@ -429,6 +429,89 @@
     <div class="footer">Law Enforcement - Downtown v1.5 - 2026: Toolls.</div>
 
     <script>
+
+      /* ===============================
+   CACHE LOCAL (SEM BACKEND)
+================================ */
+
+const CACHE_KEY = "sistema_integrado_cache_v1";
+
+/* Captura todos os campos */
+function getAllFormData() {
+  const data = {};
+
+  document.querySelectorAll("input, select, textarea").forEach(el => {
+    if (!el.id) return;
+
+    if (el.type === "file") return;
+
+    data[el.id] = el.value;
+  });
+
+  data.listaArmas = listaArmas;
+
+  // imagens (base64)
+  document.querySelectorAll("img[id^='preview']").forEach(img => {
+    if (img.src && img.style.display !== "none") {
+      data[img.id] = img.src;
+    }
+  });
+
+  return data;
+}
+
+/* Salva no cache */
+function salvarCache() {
+  const data = getAllFormData();
+  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+}
+
+/* Restaura do cache */
+function restaurarCache() {
+  const raw = localStorage.getItem(CACHE_KEY);
+  if (!raw) return;
+
+  const data = JSON.parse(raw);
+
+  Object.keys(data).forEach(key => {
+    if (key === "listaArmas") return;
+
+    const el = document.getElementById(key);
+    if (!el) return;
+
+    if (el.tagName === "IMG") {
+      el.src = data[key];
+      el.style.display = "block";
+      const label = document.getElementById(key.replace("preview", "label"));
+      if (label) label.style.display = "none";
+    } else {
+      el.value = data[key];
+    }
+  });
+
+  if (Array.isArray(data.listaArmas)) {
+    listaArmas = data.listaArmas;
+    renderListaArmas();
+  }
+}
+
+/* Auto-save em tempo real */
+document.addEventListener("input", salvarCache);
+document.addEventListener("change", salvarCache);
+
+/* Salva ao sair da página */
+window.addEventListener("beforeunload", salvarCache);
+
+/* Restaura ao carregar */
+window.addEventListener("DOMContentLoaded", restaurarCache);
+
+/* Botão opcional para limpar cache */
+function limparCache() {
+  if (confirm("Deseja apagar todos os dados salvos?")) {
+    localStorage.removeItem(CACHE_KEY);
+    location.reload();
+  }
+}
       let pasteTarget = 'preview-la';
       let listaArmas = [];
       let currentBlob = null;
