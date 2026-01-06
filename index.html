@@ -146,6 +146,115 @@
 
       .result-area { height: 120px; color: #85d296; font-family: 'Courier New', monospace; resize: none; border: 1px solid #202225; margin-top: 20px; }
       .footer { text-align: center; font-size: 0.7rem; color: var(--text-muted); padding: 20px; }
+      /* ========================= */
+/* RESPONSIVO MOBILE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  body {
+    padding-top: 70px;
+  }
+
+  .navbar {
+    height: auto;
+    padding: 8px 0;
+  }
+
+  .nav-container {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 10px;
+    gap: 5px;
+  }
+
+  .nav-container li {
+    flex: 0 0 auto;
+  }
+
+  .nav-container li a {
+    font-size: 0.7rem;
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+
+  .card {
+    max-width: 100%;
+    padding: 1.2rem;
+    margin: 10px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+  }
+
+  label {
+    font-size: 0.7rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  button.main-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 0.9rem;
+  }
+
+  .btn-now {
+    padding: 10px;
+    font-size: 0.7rem;
+  }
+
+  .photo-area {
+    min-height: 140px;
+    font-size: 0.75rem;
+  }
+
+  .photo-area img {
+    max-height: 200px;
+  }
+
+  .result-area {
+    height: 160px;
+    font-size: 0.75rem;
+  }
+
+  .footer {
+    font-size: 0.65rem;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  .nav-container li a {
+    font-size: 0.65rem;
+  }
+}
+
     </style>
   </head>
   <body onload="definirHoraAtual()">
@@ -390,27 +499,22 @@
         `).join('');
       }
 
-      // --- CORREÇÃO APLICADA AQUI NA FUNÇÃO GERAR PONTO ---
       function gerarPonto() {
         const n = document.getElementById("ponto-nome").value || "---";
         const p = document.getElementById("ponto-patente").value || "---";
         
-        // Capturando as localidades
         const locEntrada = document.getElementById("localEntrada").value || "---";
         const locSaida = document.getElementById("localSaida").value || "---";
 
         const de = new Date(document.getElementById("dataEntrada").value);
         const ds = new Date(document.getElementById("dataSaida").value);
         
-        // Formato __/__ - __:__
         const format = (d) => d instanceof Date && !isNaN(d) ? `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')} - ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}` : "__/__ - __:__";
         
-        // Montando o template string exatamente como solicitado
         const textoFinal = `> ### **Registro de Ponto**\n> **Oficial:** ${n}\n> **Patente:** ${p}\n> ### **Entrada em Serviço**\n> **Localidade:** ${locEntrada}\n> **Data/Horário:** ${format(de)}\n> ### **Saída de Serviço**\n> **Localidade:** ${locSaida}\n> **Data/Horário:** ${format(ds)}`;
 
         document.getElementById("res-ponto").value = textoFinal;
       }
-      // ----------------------------------------------------
 
       function gerarLicenca() {
         const local = document.getElementById('lic-local').value;
