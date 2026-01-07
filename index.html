@@ -9,6 +9,7 @@
         --primary: #5865f2;
         --primary-hover: #4752c4;
         --success: #3ba55d;
+        --danger: #ed4245; /* Cor para o botão limpar */
         --bg-dark: #36393f;
         --bg-card: #2f3136;
         --bg-nav: #202225;
@@ -131,9 +132,12 @@
       .btn-now { background: #4f545c; color: white; border: none; padding: 0 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; }
       .btn-group { display: flex; gap: 10px; margin-top: 20px; }
       button.main-btn { flex: 1; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
+      
       .btn-generate { background-color: var(--primary); }
       .btn-add { background-color: #4f545c; margin-top: 10px; width: 100%; padding: 10px; border-radius: 4px; border: none; color: white; cursor: pointer; font-weight: bold; }
       .btn-copy { background-color: var(--success); }
+      .btn-reset { background-color: var(--danger); } /* Estilo do botão limpar */
+      .btn-reset:hover { background-color: #c03537; }
 
       .arma-item {
         background: rgba(0,0,0,0.2);
@@ -146,115 +150,21 @@
 
       .result-area { height: 120px; color: #85d296; font-family: 'Courier New', monospace; resize: none; border: 1px solid #202225; margin-top: 20px; }
       .footer { text-align: center; font-size: 0.7rem; color: var(--text-muted); padding: 20px; }
+
       /* ========================= */
-/* RESPONSIVO MOBILE */
-/* ========================= */
-
-@media (max-width: 768px) {
-
-  body {
-    padding-top: 70px;
-  }
-
-  .navbar {
-    height: auto;
-    padding: 8px 0;
-  }
-
-  .nav-container {
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding: 0 10px;
-    gap: 5px;
-  }
-
-  .nav-container li {
-    flex: 0 0 auto;
-  }
-
-  .nav-container li a {
-    font-size: 0.7rem;
-    padding: 8px 10px;
-    white-space: nowrap;
-  }
-
-  .card {
-    max-width: 100%;
-    padding: 1.2rem;
-    margin: 10px;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  h3 {
-    font-size: 0.9rem;
-  }
-
-  label {
-    font-size: 0.7rem;
-  }
-
-  input,
-  select,
-  textarea {
-    font-size: 0.9rem;
-    padding: 12px;
-  }
-
-  .input-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn-group {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  button.main-btn {
-    width: 100%;
-    padding: 14px;
-    font-size: 0.9rem;
-  }
-
-  .btn-now {
-    padding: 10px;
-    font-size: 0.7rem;
-  }
-
-  .photo-area {
-    min-height: 140px;
-    font-size: 0.75rem;
-  }
-
-  .photo-area img {
-    max-height: 200px;
-  }
-
-  .result-area {
-    height: 160px;
-    font-size: 0.75rem;
-  }
-
-  .footer {
-    font-size: 0.65rem;
-    padding: 15px;
-  }
-}
-
-@media (max-width: 400px) {
-
-  h2 {
-    font-size: 1.1rem;
-  }
-
-  .nav-container li a {
-    font-size: 0.65rem;
-  }
-}
-
+      /* RESPONSIVO MOBILE */
+      /* ========================= */
+      @media (max-width: 768px) {
+        body { padding-top: 70px; }
+        .navbar { height: auto; padding: 8px 0; }
+        .nav-container { overflow-x: auto; justify-content: flex-start; padding: 0 10px; gap: 5px; }
+        .nav-container li { flex: 0 0 auto; }
+        .nav-container li a { font-size: 0.7rem; padding: 8px 10px; white-space: nowrap; }
+        .card { max-width: 100%; padding: 1.2rem; margin: 10px; }
+        .input-row { flex-direction: column; gap: 10px; }
+        .btn-group { flex-direction: column; gap: 12px; }
+        button.main-btn { width: 100%; padding: 14px; }
+      }
     </style>
   </head>
   <body onload="definirHoraAtual()">
@@ -294,6 +204,7 @@
       <div class="btn-group">
         <button class="main-btn btn-generate" onclick="gerarPonto()">Gerar</button>
         <button class="main-btn btn-copy" onclick="copiarSimples('res-ponto')">Copiar</button>
+        <button class="main-btn btn-reset" onclick="limparFormulario('tab-ponto')">Limpar</button>
       </div>
       <textarea id="res-ponto" class="result-area" readonly></textarea>
     </div>
@@ -334,6 +245,7 @@
       <div class="btn-group">
         <button class="main-btn btn-generate" onclick="gerarLicenca()">Gerar</button>
         <button class="main-btn btn-copy" onclick="copiarComFoto('res-licenca', 'preview-licenca')">Copiar Texto + Foto</button>
+        <button class="main-btn btn-reset" onclick="limparFormulario('tab-licenca')">Limpar</button>
       </div>
       <textarea id="res-licenca" class="result-area" readonly></textarea>
     </div>
@@ -368,6 +280,7 @@
       <div class="btn-group">
         <button class="main-btn btn-generate" onclick="gerarLicencaArma()">Gerar Registro</button>
         <button class="main-btn btn-copy" onclick="copiarComFoto('res-licarma', 'preview-la')">Copiar Texto + Foto</button>
+        <button class="main-btn btn-reset" onclick="limparFormulario('tab-lic-arma')">Limpar</button>
       </div>
       <textarea id="res-licarma" class="result-area" readonly></textarea>
     </div>
@@ -393,6 +306,7 @@
       <div class="btn-group">
         <button class="main-btn btn-generate" onclick="gerarHabitante()">Gerar Registro</button>
         <button class="main-btn btn-copy" onclick="copiarComFoto('res-hab', 'preview-hab')">Copiar Texto + Foto</button>
+        <button class="main-btn btn-reset" onclick="limparFormulario('tab-habitantes')">Limpar</button>
       </div>
       <textarea id="res-hab" class="result-area" readonly></textarea>
     </div>
@@ -422,96 +336,68 @@
       <div class="btn-group">
         <button class="main-btn btn-generate" onclick="gerarRegistroArmas()">Gerar Registro</button>
         <button class="main-btn btn-copy" onclick="copiarComFoto('res-armas', 'preview-arma')">Copiar Texto + Foto</button>
+        <button class="main-btn btn-reset" onclick="limparFormulario('tab-armas')">Limpar</button>
       </div>
       <textarea id="res-armas" class="result-area" readonly></textarea>
     </div>
 
-    <div class="footer">Law Enforcement - Downtown v1.5 - 2026: Toolls.</div>
+    <div class="footer">Law Enforcement - Downtown v1.6 - 2026: Toolls.</div>
 
     <script>
-
       /* ===============================
-   CACHE LOCAL (SEM BACKEND)
-================================ */
+         CACHE LOCAL (SEM BACKEND)
+      ================================ */
+      const CACHE_KEY = "sistema_integrado_cache_v1";
 
-const CACHE_KEY = "sistema_integrado_cache_v1";
+      function getAllFormData() {
+        const data = {};
+        document.querySelectorAll("input, select, textarea").forEach(el => {
+          if (!el.id) return;
+          if (el.type === "file") return;
+          data[el.id] = el.value;
+        });
+        data.listaArmas = listaArmas;
+        document.querySelectorAll("img[id^='preview']").forEach(img => {
+          if (img.src && img.style.display !== "none") {
+            data[img.id] = img.src;
+          }
+        });
+        return data;
+      }
 
-/* Captura todos os campos */
-function getAllFormData() {
-  const data = {};
+      function salvarCache() {
+        const data = getAllFormData();
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      }
 
-  document.querySelectorAll("input, select, textarea").forEach(el => {
-    if (!el.id) return;
+      function restaurarCache() {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        Object.keys(data).forEach(key => {
+          if (key === "listaArmas") return;
+          const el = document.getElementById(key);
+          if (!el) return;
+          if (el.tagName === "IMG") {
+            el.src = data[key];
+            el.style.display = "block";
+            const label = document.getElementById(key.replace("preview", "label"));
+            if (label) label.style.display = "none";
+          } else {
+            el.value = data[key];
+          }
+        });
+        if (Array.isArray(data.listaArmas)) {
+          listaArmas = data.listaArmas;
+          renderListaArmas();
+        }
+      }
 
-    if (el.type === "file") return;
+      document.addEventListener("input", salvarCache);
+      document.addEventListener("change", salvarCache);
+      window.addEventListener("beforeunload", salvarCache);
+      window.addEventListener("DOMContentLoaded", restaurarCache);
 
-    data[el.id] = el.value;
-  });
-
-  data.listaArmas = listaArmas;
-
-  // imagens (base64)
-  document.querySelectorAll("img[id^='preview']").forEach(img => {
-    if (img.src && img.style.display !== "none") {
-      data[img.id] = img.src;
-    }
-  });
-
-  return data;
-}
-
-/* Salva no cache */
-function salvarCache() {
-  const data = getAllFormData();
-  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-}
-
-/* Restaura do cache */
-function restaurarCache() {
-  const raw = localStorage.getItem(CACHE_KEY);
-  if (!raw) return;
-
-  const data = JSON.parse(raw);
-
-  Object.keys(data).forEach(key => {
-    if (key === "listaArmas") return;
-
-    const el = document.getElementById(key);
-    if (!el) return;
-
-    if (el.tagName === "IMG") {
-      el.src = data[key];
-      el.style.display = "block";
-      const label = document.getElementById(key.replace("preview", "label"));
-      if (label) label.style.display = "none";
-    } else {
-      el.value = data[key];
-    }
-  });
-
-  if (Array.isArray(data.listaArmas)) {
-    listaArmas = data.listaArmas;
-    renderListaArmas();
-  }
-}
-
-/* Auto-save em tempo real */
-document.addEventListener("input", salvarCache);
-document.addEventListener("change", salvarCache);
-
-/* Salva ao sair da página */
-window.addEventListener("beforeunload", salvarCache);
-
-/* Restaura ao carregar */
-window.addEventListener("DOMContentLoaded", restaurarCache);
-
-/* Botão opcional para limpar cache */
-function limparCache() {
-  if (confirm("Deseja apagar todos os dados salvos?")) {
-    localStorage.removeItem(CACHE_KEY);
-    location.reload();
-  }
-}
       let pasteTarget = 'preview-la';
       let listaArmas = [];
       let currentBlob = null;
@@ -585,17 +471,12 @@ function limparCache() {
       function gerarPonto() {
         const n = document.getElementById("ponto-nome").value || "---";
         const p = document.getElementById("ponto-patente").value || "---";
-        
         const locEntrada = document.getElementById("localEntrada").value || "---";
         const locSaida = document.getElementById("localSaida").value || "---";
-
         const de = new Date(document.getElementById("dataEntrada").value);
         const ds = new Date(document.getElementById("dataSaida").value);
-        
         const format = (d) => d instanceof Date && !isNaN(d) ? `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')} - ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}` : "__/__ - __:__";
-        
         const textoFinal = `> ### **Registro de Ponto**\n> **Oficial:** ${n}\n> **Patente:** ${p}\n> ### **Entrada em Serviço**\n> **Localidade:** ${locEntrada}\n> **Data/Horário:** ${format(de)}\n> ### **Saída de Serviço**\n> **Localidade:** ${locSaida}\n> **Data/Horário:** ${format(ds)}`;
-
         document.getElementById("res-ponto").value = textoFinal;
       }
 
@@ -613,7 +494,6 @@ function limparCache() {
         const ser = document.getElementById('la-serie').value;
         const val = document.getElementById('la-valor').value;
         const exp = document.getElementById('la-validade').value;
-
         const txt = `> ### **LICENÇA DE ARMA**\n> **Nome:** ${n}\n> **ID:** ${id}\n> **Valor:** ${val}\n> **Modelo:** ${mod}\n> **Nº Série:** ${ser}\n> **Validade:** ${exp}`;
         document.getElementById('res-licarma').value = txt;
       }
@@ -643,7 +523,6 @@ function limparCache() {
         const text = document.getElementById(textId).value;
         const img = document.getElementById(imgId);
         if(!text) return alert("Gere o registro primeiro!");
-        
         try {
           await navigator.clipboard.writeText(text);
           if (img.style.display !== 'none' && currentBlob) {
@@ -656,6 +535,37 @@ function limparCache() {
         } catch (e) {
             alert("Erro ao copiar foto automaticamente. Use o botão direito na imagem.");
         }
+      }
+
+      // FUNÇÃO NOVA PARA LIMPAR APENAS O FORMULÁRIO ATUAL
+      function limparFormulario(tabId) {
+        if(!confirm("Tem certeza que deseja limpar este formulário?")) return;
+
+        const container = document.getElementById(tabId);
+        
+        // 1. Limpa Inputs, Selects e Textareas apenas dentro da aba ativa
+        container.querySelectorAll('input, select, textarea').forEach(el => {
+           if(el.type !== 'button') el.value = '';
+        });
+
+        // 2. Limpa imagem e reseta preview
+        const photoArea = container.querySelector('.photo-area img');
+        const photoLabel = container.querySelector('.photo-area span');
+        if(photoArea) {
+            photoArea.style.display = 'none';
+            photoArea.src = '';
+            currentBlob = null; // Reseta o blob atual para evitar colar imagem antiga
+        }
+        if(photoLabel) photoLabel.style.display = 'block';
+
+        // 3. Caso especial: Limpar lista de armas
+        if(tabId === 'tab-armas') {
+            listaArmas = [];
+            renderListaArmas();
+        }
+
+        // 4. Força o salvamento no cache para persistir a limpeza
+        salvarCache();
       }
     </script>
   </body>
